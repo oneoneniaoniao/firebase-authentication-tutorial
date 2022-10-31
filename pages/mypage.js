@@ -1,30 +1,25 @@
 /* 「useState」と「useEffect」をimport↓ */
 import React, { useState, useEffect } from "react";
 /* 「onAuthStateChanged」と「auth」をimport↓ */
-import { onAuthStateChanged, signOut } from "firebase/auth";
+import { signOut } from "firebase/auth";
 import { auth } from "../FirebaseConfig.js";
 import { useRouter } from "next/router";
+import { useAuthContext } from "../context/authContext";
 
 const MyPage = () => {
-  /* ↓state変数「user」を定義 */
-  const [user, setUser] = useState("");
-  const [loading, setLoading] = useState(true);
   const router = useRouter();
-
-  /* ↓ログインしているかどうかを判定する */
-  useEffect(() => {
-    onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      setLoading(false);
-    });
-  }, []);
+  const { user } = useAuthContext();
 
   const logout = async () => {
     await signOut(auth);
     router.push("/login");
   };
 
-  !loading && !user && router.push("/login");
+  console.log(user);
+
+  if(typeof window !== "undefined"){
+    !user && router.push("/login");
+  }
 
   return (
     <>

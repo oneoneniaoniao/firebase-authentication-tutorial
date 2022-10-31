@@ -15,10 +15,10 @@ const MyPage = () => {
   }
   return (
     <>
-      <h1>マイページ</h1>
+      <h1>index</h1>
       {/* ↓ユーザーのメールアドレスを表示（ログインしている場合） */}
       <p>{user?.email}</p>
-      <button onClick={logout}>ログアウト</button>
+      <button onClick={logout}>index</button>
     </>
   );
 };
